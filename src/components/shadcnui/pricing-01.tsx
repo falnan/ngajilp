@@ -9,7 +9,7 @@ const plans = [
     isRecommended: true,
     description:
       "Learning Quran is our obligation, lack of money is not a reason to not learning Quran. Our pleasure to help you.",
-    features: ["30 minutes class", "1 class per week", "private class"],
+    features: ["private class", "30 minutes/class", "1x class per week"],
     buttonText: "Register",
     isPopular: true,
     color: "bg-gradient-to-tr from-blue-300 to-cyan-300",

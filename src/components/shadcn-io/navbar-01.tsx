@@ -14,6 +14,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // Simple logo component for the navbar
 const Logo = (props: React.SVGAttributes<SVGElement>) => {
@@ -85,7 +87,6 @@ const HamburgerIcon = ({
 export interface Navbar01NavLink {
   href: string;
   label: string;
-  active?: boolean;
 }
 
 export interface Navbar01Props extends React.HTMLAttributes<HTMLElement> {
@@ -102,10 +103,10 @@ export interface Navbar01Props extends React.HTMLAttributes<HTMLElement> {
 
 // Default navigation links
 const defaultNavigationLinks: Navbar01NavLink[] = [
-  { href: "#", label: "Home", active: true },
-  { href: "#features", label: "Features" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#about", label: "About" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About us" },
+  { href: "/plan", label: "Plans & Pricing" },
+  { href: "/faq", label: "FAQs" },
 ];
 
 export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
@@ -117,8 +118,8 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
       navigationLinks = defaultNavigationLinks,
       signInText = "Sign In",
       signInHref = "#signin",
-      ctaText = "Get Started",
-      ctaHref = "#get-started",
+      ctaText = "Start Free Class",
+      ctaHref = "https://wa.me/6282285567722?text=Assalaamu'alaikum%21%20I%27m%20interested%20in%20starting%20Quran%20classes%20for%20my%20child.",
       onSignInClick,
       onCtaClick,
       ...props
@@ -160,7 +161,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
       },
       [ref]
     );
-
+    const pathname = usePathname();
     return (
       <header
         ref={combinedRef}
@@ -190,17 +191,17 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                     <NavigationMenuList className="flex-col items-start gap-1">
                       {navigationLinks.map((link, index) => (
                         <NavigationMenuItem key={index} className="w-full">
-                          <button
-                            onClick={(e) => e.preventDefault()}
+                          <Link
+                            href={link.href}
                             className={cn(
                               "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline",
-                              link.active
+                              link.href == pathname
                                 ? "bg-accent text-accent-foreground"
                                 : "text-foreground/80"
                             )}
                           >
                             {link.label}
-                          </button>
+                          </Link>
                         </NavigationMenuItem>
                       ))}
                     </NavigationMenuList>
@@ -216,7 +217,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
               >
                 <div className="text-2xl">{logo}</div>
                 <span className="hidden font-bold text-xl sm:inline-block">
-                  shadcn.io
+                  Darsy
                 </span>
               </button>
               {/* Navigation menu */}
@@ -225,7 +226,18 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                   <NavigationMenuList className="gap-1">
                     {navigationLinks.map((link, index) => (
                       <NavigationMenuItem key={index}>
-                        <button
+                        <Link
+                          href={link.href}
+                          className={cn(
+                            "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer no-underline",
+                            link.href == pathname
+                              ? "bg-accent text-accent-foreground"
+                              : "text-foreground/80 hover:text-foreground"
+                          )}
+                        >
+                          {link.label}
+                        </Link>
+                        {/* <button
                           onClick={(e) => e.preventDefault()}
                           className={cn(
                             "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer no-underline",
@@ -235,7 +247,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                           )}
                         >
                           {link.label}
-                        </button>
+                        </button> */}
                       </NavigationMenuItem>
                     ))}
                   </NavigationMenuList>
@@ -256,16 +268,18 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
             >
               {signInText}
             </Button> */}
-            <Button
-              size="sm"
-              className="bg-lime-500 text-sm font-medium px-4 h-9 rounded-md shadow-sm"
-              onClick={(e) => {
-                e.preventDefault();
-                if (onCtaClick) onCtaClick();
-              }}
-            >
-              {ctaText}
-            </Button>
+            <a href={ctaHref}>
+              <Button
+                size="sm"
+                className="bg-lime-500 text-sm font-medium px-4 h-9 rounded-full shadow-sm"
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   if (onCtaClick) onCtaClick();
+                // }}
+              >
+                {ctaText}
+              </Button>
+            </a>
           </div>
         </div>
       </header>
