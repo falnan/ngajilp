@@ -14,10 +14,10 @@ export default function Footer() {
       title: "Home",
       href: "/",
     },
-    {
-      title: "About Us",
-      href: "/about",
-    },
+    // {
+    //   title: "About Us",
+    //   href: "/about",
+    // },
     {
       title: "Pricing & Plans",
       href: "/plan",
@@ -66,6 +66,13 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            <div className="text-center">
+              <p>
+                Address: Jl. Awang Mahmuda, Sungai Alam Village, Bengkalis
+                Regency, 28714, Indonesia
+              </p>
+              <p>Contact: +6281991671932</p>
+            </div>
           </div>
           <Separator />
           <div className="py-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-x-2 gap-y-5 px-6 xl:px-0">
@@ -73,7 +80,7 @@ export default function Footer() {
             <span className="text-slate-800">
               &copy; {new Date().getFullYear()}{" "}
               <Link href="/" target="_blank">
-                Shadcn UI Blocks
+                Darsy
               </Link>
               . All rights reserved.
             </span>
